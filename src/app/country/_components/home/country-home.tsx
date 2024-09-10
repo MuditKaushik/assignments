@@ -24,10 +24,10 @@ export default function CountryHome(props: ICountryData) {
     if (region.trim().length > 0) {
       switch (searchFor) {
         case 'region':
-          setCountries(savedCountries.current.filter(country => country.region.toLowerCase().includes(region)));
+          setCountries(savedCountries.current.filter(country => country.region.toLowerCase().includes(region.toLowerCase())));
           break
         case 'nameCapital':
-          setCountries(savedCountries.current.filter(country => country.region.toLowerCase().includes(region)));
+          setCountries(savedCountries.current.filter(country => country.capitals.find(item => item.toLowerCase().includes(region.toLowerCase())) || country.name.toLowerCase().includes(region.toLowerCase())));
           break
         default: break
       }

@@ -9,24 +9,25 @@ interface ICountryCardProps {
 };
 
 export default function CountryCard({ country }: ICountryCardProps) {
+  const NotAvailable: string = 'N/A';
   const [detailView, setDetailsView] = useState<boolean>(false);
   return (
     <div className="card">
       {country.flag && <Image src={country.flag} width={0} height={0} className={`card-img-top ${countryStyle.countryFlag}`} alt='...' priority />}
       <div className='card-body'>
-        <h5 className='card-title'>{country.name}</h5>
+        <h5 className='card-title'>{country.name || NotAvailable}</h5>
         {
           detailView ?
-            <a href='#' style={{textDecoration: 'none'}} onClick={(e) => { e.preventDefault(); setDetailsView(false); }}>hide</a> :
-            <a href='#' style={{textDecoration: 'none'}} onClick={(e) => { e.preventDefault(); setDetailsView(true); }}>details</a>
+            <a href='#' style={{ textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); setDetailsView(false); }}>hide</a> :
+            <a href='#' style={{ textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); setDetailsView(true); }}>details</a>
         }
       </div>
       <ul className={`list-group list-group-flush ${countryStyle.detailsFontSize}`}>
         <li className="list-group-item">
-          <span>Region</span>: <i><strong>{country.region}</strong></i>
+          <span>Region</span>: <i><strong>{country.region || NotAvailable}</strong></i>
         </li>
         <li className="list-group-item">
-          <span>Capital{country.capitals.length > 1 && <span>s</span>}</span>: <i><strong>{country.capitals.toString()}</strong></i>
+          <span>Capital{country.capitals.length > 1 && <span>s</span>}</span>: <i><strong>{country.capitals.toString() || NotAvailable}</strong></i>
         </li>
         <li className="list-group-item">
           <span>Population</span>: <i><strong>{country.population}</strong></i>
@@ -35,17 +36,17 @@ export default function CountryCard({ country }: ICountryCardProps) {
           detailView && <>
             <li className="list-group-item d-flex justify-content-between">
               <span>
-                Currency: <i><strong>{country.currency.name}</strong></i>
+                Currency: <i><strong>{country.currency.name || NotAvailable}</strong></i>
               </span>
               <span>
-                Symbol: <i><strong>{country.currency.symbol}</strong></i>
+                Symbol: <i><strong>{country.currency.symbol || NotAvailable}</strong></i>
               </span>
             </li>
             <li className="list-group-item">
-              <span>Language{country.languages.length > 1 && <span>s</span>}</span>: <i><strong>{country.languages.toString()}</strong></i>
+              <span>Language{country.languages.length > 1 && <span>s</span>}</span>: <i><strong>{country.languages.toString() || NotAvailable}</strong></i>
             </li>
             <li className="list-group-item">
-              <span>Timezone{country.timezones.length > 1 && <span>s</span>}</span>: <i><strong>{country.timezones.toString()}</strong></i>
+              <span>Timezone{country.timezones.length > 1 && <span>s</span>}</span>: <i><strong>{country.timezones.toString() || NotAvailable}</strong></i>
             </li>
           </>
         }
